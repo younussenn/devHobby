@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dbBackup", "dbBackup\dbBackup.csproj", "{DCD4B2EE-B38C-4541-A998-88BCC393BA8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCD4B2EE-B38C-4541-A998-88BCC393BA8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD4B2EE-B38C-4541-A998-88BCC393BA8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD4B2EE-B38C-4541-A998-88BCC393BA8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD4B2EE-B38C-4541-A998-88BCC393BA8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51FB2F97-0CB5-462D-BC10-EF2BF3EAB2F9}
+	EndGlobalSection
+EndGlobal
