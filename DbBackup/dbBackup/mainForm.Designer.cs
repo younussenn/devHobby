@@ -39,7 +39,13 @@
             this.ribbonPageGroup2 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.taskbarAssistant1 = new DevExpress.Utils.Taskbar.TaskbarAssistant();
             this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
+            this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.cblDatabase = new DevExpress.XtraEditors.CheckedListBoxControl();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cblDatabase)).BeginInit();
             this.SuspendLayout();
             // 
             // ribbonControl1
@@ -56,7 +62,8 @@
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.rbBackup,
             this.rbSettings});
-            this.ribbonControl1.Size = new System.Drawing.Size(1150, 187);
+            this.ribbonControl1.Size = new System.Drawing.Size(1039, 187);
+            this.ribbonControl1.StatusBar = this.ribbonStatusBar1;
             // 
             // btnSettings
             // 
@@ -65,6 +72,7 @@
             this.btnSettings.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnSettings.ImageOptions.Image")));
             this.btnSettings.Name = "btnSettings";
             this.btnSettings.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnSettings.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnSettings_ItemClick);
             // 
             // btnBackup
             // 
@@ -108,22 +116,61 @@
             // 
             this.defaultLookAndFeel1.LookAndFeel.SkinName = "McSkin";
             // 
+            // ribbonStatusBar1
+            // 
+            this.ribbonStatusBar1.Location = new System.Drawing.Point(0, 590);
+            this.ribbonStatusBar1.Name = "ribbonStatusBar1";
+            this.ribbonStatusBar1.Ribbon = this.ribbonControl1;
+            this.ribbonStatusBar1.Size = new System.Drawing.Size(1039, 35);
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.CaptionImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("groupControl1.CaptionImageOptions.Image")));
+            this.groupControl1.Controls.Add(this.cblDatabase);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupControl1.Location = new System.Drawing.Point(0, 187);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(221, 403);
+            this.groupControl1.TabIndex = 2;
+            this.groupControl1.Text = "Databases";
+            // 
+            // cblDatabase
+            // 
+            this.cblDatabase.Appearance.BackColor = System.Drawing.Color.Silver;
+            this.cblDatabase.Appearance.ForeColor = System.Drawing.Color.White;
+            this.cblDatabase.Appearance.Options.UseBackColor = true;
+            this.cblDatabase.Appearance.Options.UseForeColor = true;
+            this.cblDatabase.Cursor = System.Windows.Forms.Cursors.Default;
+            this.cblDatabase.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cblDatabase.Location = new System.Drawing.Point(2, 41);
+            this.cblDatabase.Name = "cblDatabase";
+            this.cblDatabase.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.cblDatabase.Size = new System.Drawing.Size(217, 360);
+            this.cblDatabase.TabIndex = 0;
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1150, 644);
+            this.ClientSize = new System.Drawing.Size(1039, 625);
+            this.Controls.Add(this.groupControl1);
+            this.Controls.Add(this.ribbonStatusBar1);
             this.Controls.Add(this.ribbonControl1);
             this.FormBorderEffect = DevExpress.XtraEditors.FormBorderEffect.Shadow;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "mainForm";
-            this.Opacity = 0.8D;
             this.Ribbon = this.ribbonControl1;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StatusBar = this.ribbonStatusBar1;
             this.Text = "Database Backup";
+            this.Load += new System.EventHandler(this.mainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cblDatabase)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -140,6 +187,9 @@
         private DevExpress.XtraBars.BarButtonItem btnBackup;
         private DevExpress.Utils.Taskbar.TaskbarAssistant taskbarAssistant1;
         private DevExpress.LookAndFeel.DefaultLookAndFeel defaultLookAndFeel1;
+        private DevExpress.XtraBars.Ribbon.RibbonStatusBar ribbonStatusBar1;
+        private DevExpress.XtraEditors.GroupControl groupControl1;
+        private DevExpress.XtraEditors.CheckedListBoxControl cblDatabase;
     }
 }
 

@@ -76,7 +76,7 @@ namespace dbBackup
             dtSetting.Columns.Add("Server");
             dtSetting.Columns.Add("User");
             dtSetting.Columns.Add("Password");
-            dtSetting.Columns.Add("IsLocalDB");
+            dtSetting.Columns.Add("IsWindowsAuth");
 
             if (!File.Exists("dtSetting.xsd"))
                 dtSetting.WriteXmlSchema("dtSetting.xsd");
@@ -86,6 +86,7 @@ namespace dbBackup
             dr["Server"] = tb_Server.Text;
             dr["User"] = tb_DbUser.Text;
             dr["Password"] = EncryptionManager.Encrypt(tb_DbPass.Text);
+            dr["IsWindowsAuth"] = radioGroup1.SelectedIndex.ToString();
 
 
             dtSetting.Rows.Add(dr);
@@ -113,7 +114,8 @@ namespace dbBackup
                 foreach (DataRow dr in dtSetting.Rows)
                 {
                     tb_Server.Text = dr["Server"].ToString();
-                   
+
+                    radioGroup1.SelectedIndex = Convert.ToInt32(dr["IsWindowsAuth"].ToString());
                     tb_DbUser.Text = dr["User"].ToString();
                     tb_DbPass.Text = EncryptionManager.Decrypt(dr["Password"].ToString());
 
@@ -130,6 +132,33 @@ namespace dbBackup
             Managers.ConnectionManager.User = user;
             Managers.ConnectionManager.Password = password;
 
+        }
+
+        private void frmDbSettings_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                Xml_Reader();
+            }
+            catch (Exception ex)
+            {
+                MessageManager.ShowErrorMessage(ex.Message);
+            }
+        }
+
+        private void radioGroup1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RadioGroup edit = sender as RadioGroup;
+            if (edit.SelectedIndex == 0)
+            {
+                tb_DbUser.Enabled = false;
+                tb_DbPass.Enabled = false;
+            }
+            else
+            {
+                tb_DbUser.Enabled = true;
+                tb_DbPass.Enabled = true;
+            }
         }
     }
 }

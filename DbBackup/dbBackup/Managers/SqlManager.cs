@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
-namespace marketimmApp.Managers
+namespace dbBackup.Managers
 {
     public class SqlManager
     {
@@ -18,7 +18,7 @@ namespace marketimmApp.Managers
         {
             //SqlConnectionString = "Data Source='" + ConnectionInfo.ServerName + "';Initial Catalog='" + ConnectionInfo.Database + "';Persist Security Info=True;User ID='" + ConnectionInfo.User + "';Password='" + ConnectionInfo.User+"'";
 
-            SqlConnectionString = "Data Source=" + ConnectionManager.ServerName + ";Initial Catalog=" + ConnectionManager.Database + ";Integrated Security=True;";// + ConnectionManager.User + ";Password=" + ConnectionManager.Password + "'";
+            SqlConnectionString = "Data Source=" + ConnectionManager.ServerName + ";Initial Catalog=" + "master" + ";Integrated Security=True;";// + ConnectionManager.User + ";Password=" + ConnectionManager.Password + "'";
 
 
             // SqlConnectionString = "Data Source='" + ConnectionManager.ServerName + "';Initial Catalog='" + ConnectionManager.Database + "';User ID='" + ConnectionManager.User + "';Password='" + ConnectionManager.Password + "'";
@@ -69,12 +69,12 @@ namespace marketimmApp.Managers
                         }
                         else
                         {
-                            MessageManager.ShowErrorMessage("Bağlantı başarısız! Lütfen bilgilerinizi kontrol ediniz.");
+                            MessageManager.ShowErrorMessage("Connection failed! Please check the connection information.");
                         }
                     }
                     catch (SqlException)
                     {
-                        MessageManager.ShowErrorMessage("Bağlantı başarısız! Lütfen bilgilerinizi kontrol ediniz.");
+                        MessageManager.ShowErrorMessage("Connection failed! Please check the connection information.");
                     }
                 }
             }

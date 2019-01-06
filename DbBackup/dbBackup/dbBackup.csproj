@@ -72,7 +72,9 @@
     </Compile>
     <Compile Include="Managers\ConnectionManager.cs" />
     <Compile Include="Managers\EncryptionManager.cs" />
+    <Compile Include="Managers\FormManager.cs" />
     <Compile Include="Managers\MessageManager.cs" />
+    <Compile Include="Managers\SqlManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmDbSchedule.resx">
