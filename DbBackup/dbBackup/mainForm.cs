@@ -23,8 +23,11 @@ namespace dbBackup
         {
             InitializeComponent();
 
+
             fm = new FormManager();
             cm = new ConnectionManager();
+
+            Xml_Reader();
             sqlManager = new SqlManager();
 
             
@@ -38,8 +41,18 @@ namespace dbBackup
 
         private void mainForm_Load(object sender, EventArgs e)
         {
-            if(GetDatabaseList().Count > 0)
-                cblDatabase.DataSource = GetDatabaseList();
+
+            try
+            {
+                if (GetDatabaseList().Count > 0)
+                    cblDatabase.DataSource = GetDatabaseList();
+            }
+            catch (Exception ex)
+            {
+
+                MessageManager.ShowErrorMessage(ex.Message);
+            }
+           
             
 
         }
@@ -53,7 +66,10 @@ namespace dbBackup
 
             using (SqlConnection con = new SqlConnection(sqlManager.SqlConnectionString))
             {
-                
+
+                if (con.State == ConnectionState.Closed)
+                    con.Open();
+
                 if(con.State == ConnectionState.Open)
                 { 
                     using (SqlCommand cmd = new SqlCommand("SELECT name from sys.databases", con))
@@ -72,31 +88,31 @@ namespace dbBackup
 
         }
 
-        
-        //private void Xml_Reader()
-        //{
-        //    if (File.Exists("dtSetting.xsd"))
-        //    {
 
-        //        DataTable dtSetting = new DataTable();
-        //        dtSetting.ReadXmlSchema("dtSetting.xsd");
+        private void Xml_Reader()
+        {
+            if (File.Exists("dtSetting.xsd"))
+            {
 
-        //        dtSetting.ReadXml("dtSetting.xml");
+                DataTable dtSetting = new DataTable();
+                dtSetting.ReadXmlSchema("dtSetting.xsd");
 
-
-        //        foreach (DataRow dr in dtSetting.Rows)
-        //        {
-        //            tb_Server.Text = dr["Server"].ToString();
-
-        //            radioGroup1.SelectedIndex = Convert.ToInt32(dr["IsWindowsAuth"].ToString());
-        //            tb_DbUser.Text = dr["User"].ToString();
-        //            tb_DbPass.Text = EncryptionManager.Decrypt(dr["Password"].ToString());
+                dtSetting.ReadXml("dtSetting.xml");
 
 
-        //        }
+                foreach (DataRow dr in dtSetting.Rows)
+                {
+                    ConnectionManager.ServerName= dr["Server"].ToString();
+                    ConnectionManager.User = dr["User"].ToString();
+                    ConnectionManager.Password = EncryptionManager.Decrypt(dr["Password"].ToString());
+                }
 
-        //    }
-        //}
+            }
+        }
 
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
