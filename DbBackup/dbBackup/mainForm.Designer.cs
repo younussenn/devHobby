@@ -34,6 +34,7 @@
             this.btnSettings = new DevExpress.XtraBars.BarButtonItem();
             this.btnBackup = new DevExpress.XtraBars.BarButtonItem();
             this.barText = new DevExpress.XtraBars.BarStaticItem();
+            this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
             this.rbBackup = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.rbSettings = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -47,21 +48,20 @@
             this.cbFolder = new DevExpress.XtraEditors.CheckEdit();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
+            this.lblFolder = new DevExpress.XtraEditors.LabelControl();
+            this.btnFolder = new DevExpress.XtraEditors.SimpleButton();
+            this.tbPath = new DevExpress.XtraEditors.TextEdit();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-            this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
-            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
+            this.lblEMail = new DevExpress.XtraEditors.LabelControl();
+            this.btnEmailSettings = new DevExpress.XtraEditors.SimpleButton();
+            this.tbEMail = new DevExpress.XtraEditors.TextEdit();
+            this.cbEMail = new DevExpress.XtraEditors.CheckEdit();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.timeEdit1 = new DevExpress.XtraEditors.TimeEdit();
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.checkEdit2 = new DevExpress.XtraEditors.CheckEdit();
-            this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
             this.btnRun = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -72,11 +72,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbFolder.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbPath.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbEMail.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbEMail.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.timeEdit1.Properties)).BeginInit();
@@ -123,6 +123,17 @@
             // 
             this.barText.Id = 3;
             this.barText.Name = "barText";
+            // 
+            // skinRibbonGalleryBarItem1
+            // 
+            this.skinRibbonGalleryBarItem1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+            this.skinRibbonGalleryBarItem1.Caption = "skinRibbonGalleryBarItem1";
+            // 
+            // 
+            // 
+            this.skinRibbonGalleryBarItem1.Gallery.ShowItemText = true;
+            this.skinRibbonGalleryBarItem1.Id = 5;
+            this.skinRibbonGalleryBarItem1.Name = "skinRibbonGalleryBarItem1";
             // 
             // rbBackup
             // 
@@ -209,13 +220,14 @@
             this.cbFolder.Properties.Caption = "Store Backups in a Local/Network Folder";
             this.cbFolder.Size = new System.Drawing.Size(273, 20);
             this.cbFolder.TabIndex = 5;
+            this.cbFolder.CheckedChanged += new System.EventHandler(this.cbFolder_CheckedChanged);
             // 
             // panelControl1
             // 
             this.panelControl1.Controls.Add(this.labelControl2);
-            this.panelControl1.Controls.Add(this.labelControl1);
-            this.panelControl1.Controls.Add(this.simpleButton1);
-            this.panelControl1.Controls.Add(this.textEdit1);
+            this.panelControl1.Controls.Add(this.lblFolder);
+            this.panelControl1.Controls.Add(this.btnFolder);
+            this.panelControl1.Controls.Add(this.tbPath);
             this.panelControl1.Controls.Add(this.cbFolder);
             this.panelControl1.Location = new System.Drawing.Point(227, 194);
             this.panelControl1.Name = "panelControl1";
@@ -231,40 +243,40 @@
             this.labelControl2.TabIndex = 9;
             this.labelControl2.Text = "Full Database Backup stored like \"YYYYmmdd_DbName.zip\"";
             // 
-            // labelControl1
+            // lblFolder
             // 
-            this.labelControl1.Enabled = false;
-            this.labelControl1.Location = new System.Drawing.Point(23, 45);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(130, 16);
-            this.labelControl1.TabIndex = 8;
-            this.labelControl1.Text = "Local/Network Folder :";
+            this.lblFolder.Enabled = false;
+            this.lblFolder.Location = new System.Drawing.Point(23, 45);
+            this.lblFolder.Name = "lblFolder";
+            this.lblFolder.Size = new System.Drawing.Size(130, 16);
+            this.lblFolder.TabIndex = 8;
+            this.lblFolder.Text = "Local/Network Folder :";
             // 
-            // simpleButton1
+            // btnFolder
             // 
-            this.simpleButton1.Enabled = false;
-            this.simpleButton1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
-            this.simpleButton1.Location = new System.Drawing.Point(717, 34);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(42, 37);
-            this.simpleButton1.TabIndex = 7;
+            this.btnFolder.Enabled = false;
+            this.btnFolder.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.btnFolder.Location = new System.Drawing.Point(717, 34);
+            this.btnFolder.Name = "btnFolder";
+            this.btnFolder.Size = new System.Drawing.Size(42, 37);
+            this.btnFolder.TabIndex = 7;
             // 
-            // textEdit1
+            // tbPath
             // 
-            this.textEdit1.Enabled = false;
-            this.textEdit1.Location = new System.Drawing.Point(168, 42);
-            this.textEdit1.MenuManager = this.ribbonControl1;
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Size = new System.Drawing.Size(543, 23);
-            this.textEdit1.TabIndex = 6;
+            this.tbPath.Enabled = false;
+            this.tbPath.Location = new System.Drawing.Point(168, 42);
+            this.tbPath.MenuManager = this.ribbonControl1;
+            this.tbPath.Name = "tbPath";
+            this.tbPath.Size = new System.Drawing.Size(543, 23);
+            this.tbPath.TabIndex = 6;
             // 
             // panelControl2
             // 
             this.panelControl2.Controls.Add(this.labelControl3);
-            this.panelControl2.Controls.Add(this.labelControl4);
-            this.panelControl2.Controls.Add(this.simpleButton2);
-            this.panelControl2.Controls.Add(this.textEdit2);
-            this.panelControl2.Controls.Add(this.checkEdit1);
+            this.panelControl2.Controls.Add(this.lblEMail);
+            this.panelControl2.Controls.Add(this.btnEmailSettings);
+            this.panelControl2.Controls.Add(this.tbEMail);
+            this.panelControl2.Controls.Add(this.cbEMail);
             this.panelControl2.Location = new System.Drawing.Point(227, 316);
             this.panelControl2.Name = "panelControl2";
             this.panelControl2.Size = new System.Drawing.Size(800, 123);
@@ -279,42 +291,43 @@
             this.labelControl3.TabIndex = 9;
             this.labelControl3.Text = "Subject will be \"Success/Failure DbName\"";
             // 
-            // labelControl4
+            // lblEMail
             // 
-            this.labelControl4.Enabled = false;
-            this.labelControl4.Location = new System.Drawing.Point(23, 45);
-            this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Size = new System.Drawing.Size(85, 16);
-            this.labelControl4.TabIndex = 8;
-            this.labelControl4.Text = "E-Mail Address";
+            this.lblEMail.Enabled = false;
+            this.lblEMail.Location = new System.Drawing.Point(23, 45);
+            this.lblEMail.Name = "lblEMail";
+            this.lblEMail.Size = new System.Drawing.Size(85, 16);
+            this.lblEMail.TabIndex = 8;
+            this.lblEMail.Text = "E-Mail Address";
             // 
-            // simpleButton2
+            // btnEmailSettings
             // 
-            this.simpleButton2.Enabled = false;
-            this.simpleButton2.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.ImageOptions.Image")));
-            this.simpleButton2.Location = new System.Drawing.Point(612, 71);
-            this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(147, 37);
-            this.simpleButton2.TabIndex = 7;
-            this.simpleButton2.Text = "E-Mail Settings";
+            this.btnEmailSettings.Enabled = false;
+            this.btnEmailSettings.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.ImageOptions.Image")));
+            this.btnEmailSettings.Location = new System.Drawing.Point(612, 71);
+            this.btnEmailSettings.Name = "btnEmailSettings";
+            this.btnEmailSettings.Size = new System.Drawing.Size(147, 37);
+            this.btnEmailSettings.TabIndex = 7;
+            this.btnEmailSettings.Text = "E-Mail Settings";
             // 
-            // textEdit2
+            // tbEMail
             // 
-            this.textEdit2.Enabled = false;
-            this.textEdit2.Location = new System.Drawing.Point(141, 42);
-            this.textEdit2.MenuManager = this.ribbonControl1;
-            this.textEdit2.Name = "textEdit2";
-            this.textEdit2.Size = new System.Drawing.Size(618, 23);
-            this.textEdit2.TabIndex = 6;
+            this.tbEMail.Enabled = false;
+            this.tbEMail.Location = new System.Drawing.Point(141, 42);
+            this.tbEMail.MenuManager = this.ribbonControl1;
+            this.tbEMail.Name = "tbEMail";
+            this.tbEMail.Size = new System.Drawing.Size(618, 23);
+            this.tbEMail.TabIndex = 6;
             // 
-            // checkEdit1
+            // cbEMail
             // 
-            this.checkEdit1.Location = new System.Drawing.Point(5, 5);
-            this.checkEdit1.MenuManager = this.ribbonControl1;
-            this.checkEdit1.Name = "checkEdit1";
-            this.checkEdit1.Properties.Caption = "Send E-Mail Confimations";
-            this.checkEdit1.Size = new System.Drawing.Size(273, 20);
-            this.checkEdit1.TabIndex = 5;
+            this.cbEMail.Location = new System.Drawing.Point(5, 5);
+            this.cbEMail.MenuManager = this.ribbonControl1;
+            this.cbEMail.Name = "cbEMail";
+            this.cbEMail.Properties.Caption = "Send E-Mail Confimations";
+            this.cbEMail.Size = new System.Drawing.Size(273, 20);
+            this.cbEMail.TabIndex = 5;
+            this.cbEMail.CheckedChanged += new System.EventHandler(this.cbEMail_CheckedChanged);
             // 
             // panelControl3
             // 
@@ -322,7 +335,7 @@
             this.panelControl3.Controls.Add(this.labelControl5);
             this.panelControl3.Controls.Add(this.labelControl6);
             this.panelControl3.Controls.Add(this.checkEdit2);
-            this.panelControl3.Location = new System.Drawing.Point(227, 455);
+            this.panelControl3.Location = new System.Drawing.Point(227, 454);
             this.panelControl3.Name = "panelControl3";
             this.panelControl3.Size = new System.Drawing.Size(800, 115);
             this.panelControl3.TabIndex = 8;
@@ -368,20 +381,9 @@
             this.checkEdit2.Size = new System.Drawing.Size(273, 20);
             this.checkEdit2.TabIndex = 5;
             // 
-            // skinRibbonGalleryBarItem1
-            // 
-            this.skinRibbonGalleryBarItem1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-            this.skinRibbonGalleryBarItem1.Caption = "skinRibbonGalleryBarItem1";
-            // 
-            // 
-            // 
-            this.skinRibbonGalleryBarItem1.Gallery.ShowItemText = true;
-            this.skinRibbonGalleryBarItem1.Id = 5;
-            this.skinRibbonGalleryBarItem1.Name = "skinRibbonGalleryBarItem1";
-            // 
             // btnRun
             // 
-            this.btnRun.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton3.ImageOptions.Image")));
+            this.btnRun.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnRun.ImageOptions.Image")));
             this.btnRun.Location = new System.Drawing.Point(870, 575);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(157, 49);
@@ -422,12 +424,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbPath.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             this.panelControl2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbEMail.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbEMail.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             this.panelControl3.PerformLayout();
@@ -460,15 +462,15 @@
         private DevExpress.XtraEditors.CheckEdit checkEdit2;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl3;
-        private DevExpress.XtraEditors.LabelControl labelControl4;
-        private DevExpress.XtraEditors.SimpleButton simpleButton2;
-        private DevExpress.XtraEditors.TextEdit textEdit2;
-        private DevExpress.XtraEditors.CheckEdit checkEdit1;
+        private DevExpress.XtraEditors.LabelControl lblEMail;
+        private DevExpress.XtraEditors.SimpleButton btnEmailSettings;
+        private DevExpress.XtraEditors.TextEdit tbEMail;
+        private DevExpress.XtraEditors.CheckEdit cbEMail;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
+        private DevExpress.XtraEditors.LabelControl lblFolder;
+        private DevExpress.XtraEditors.SimpleButton btnFolder;
+        private DevExpress.XtraEditors.TextEdit tbPath;
         private DevExpress.XtraEditors.CheckEdit cbFolder;
         private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1;
         private DevExpress.XtraBars.SkinRibbonGalleryBarItem skinRibbonGalleryBarItem1;

@@ -17,56 +17,85 @@ namespace dbBackup
     {
 
         private string TestConnectionString;
-        public frmDbSettings()
+        mainForm mF;
+        public frmDbSettings(mainForm fParent)
         {
             InitializeComponent();
+            mF = fParent;
+
+
         }
 
         private void btn_Test_Click(object sender, EventArgs e)
         {
-            if (tb_DbUser.Text == "" && tb_DbPass.Text == "")
-            {
-                TestConnectionString = "Data Source=" + tb_Server.Text + ";Initial Catalog=" +"master"+ ";Integrated Security=True;";
-
-
-            }
-            else
-            {
-                TestConnectionString = "Data Source='" + tb_Server.Text + "';Initial Catalog='" + "master" + "';User ID='" + tb_DbUser.Text + "';Password='" + tb_DbPass.Text + "'";
-
-            }
-
             try
             {
-                using (SqlConnection connection = new SqlConnection(TestConnectionString))
+                if (tb_Server.Text == "")
+                    throw new Exception("Please fill SQL Server Name");
+
+                if(radioGroup1.SelectedIndex == 1)
                 {
-                    try
+                    if (tb_DbUser.Text == "")
+                        throw new Exception("Please fill SQL User");
+
+                    if (tb_DbPass.Text == "")
+                        throw new Exception("Please fill SQL Password");
+
+
+
+                }
+
+                if (tb_DbUser.Text == "" && tb_DbPass.Text == "")
+                {
+                    TestConnectionString = "Data Source=" + tb_Server.Text + ";Initial Catalog=" + "master" + ";Integrated Security=True;";
+
+
+                }
+                else
+                {
+                    TestConnectionString = "Data Source='" + tb_Server.Text + "';Initial Catalog='" + "master" + "';User ID='" + tb_DbUser.Text + "';Password='" + tb_DbPass.Text + "'";
+
+                }
+
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(TestConnectionString))
                     {
-                        connection.Open();
-                        if (connection.State == ConnectionState.Open) //Baglanti basarili mi?
+                        try
                         {
-                            MessageManager.ShowInfoMessage("Test connection succeeded");
+                            connection.Open();
+                            if (connection.State == ConnectionState.Open) //Baglanti basarili mi?
+                            {
+                                MessageManager.ShowInfoMessage("Test connection succeeded");
+                            }
+                            else
+                            {
+                                MessageManager.ShowErrorMessage("Connection failed! Please check the connection information.");
+                            }
                         }
-                        else
+                        catch (SqlException ex)
                         {
                             MessageManager.ShowErrorMessage("Connection failed! Please check the connection information.");
+
                         }
                     }
-                    catch (SqlException ex)
-                    {
-                        MessageManager.ShowErrorMessage("Connection failed! Please check the connection information.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                finally
+                {
 
-                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
-            }
-            finally
-            {
 
+                MessageManager.ShowErrorMessage(ex.Message);
             }
+
+            
         }
 
         private void btn_Save_Click(object sender, EventArgs e)
@@ -95,7 +124,7 @@ namespace dbBackup
             #endregion
 
 
-            connectSQLSERVER(tb_Server.Text, tb_DbUser.Text, tb_DbPass.Text);
+            connectSQLSERVER(tb_Server.Text, tb_DbUser.Text, tb_DbPass.Text,radioGroup1.SelectedIndex);
             Close();
 
         }
@@ -126,11 +155,12 @@ namespace dbBackup
         }
 
 
-        public void connectSQLSERVER(string server,string user, string password)
+        public void connectSQLSERVER(string server,string user, string password,int iswindowsauth)
         {
             Managers.ConnectionManager.ServerName = server;
             Managers.ConnectionManager.User = user;
             Managers.ConnectionManager.Password = password;
+            Managers.ConnectionManager.IsWindowsAuthentication = iswindowsauth;
 
         }
 
@@ -153,12 +183,30 @@ namespace dbBackup
             {
                 tb_DbUser.Enabled = false;
                 tb_DbPass.Enabled = false;
+                tb_DbUser.Text = "";
+                tb_DbPass.Text = "";
             }
             else
             {
                 tb_DbUser.Enabled = true;
                 tb_DbPass.Enabled = true;
             }
+        }
+
+       
+
+        private void frmDbSettings_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                mF.FillDB();
+            }
+            catch (Exception ex)
+            {
+
+                MessageManager.ShowErrorMessage(ex.Message);
+            }
+          
         }
     }
 }

@@ -16,9 +16,11 @@ namespace dbBackup.Managers
 
         public SqlManager()
         {
-            //SqlConnectionString = "Data Source='" + ConnectionInfo.ServerName + "';Initial Catalog='" + ConnectionInfo.Database + "';Persist Security Info=True;User ID='" + ConnectionInfo.User + "';Password='" + ConnectionInfo.User+"'";
+            if(ConnectionManager.IsWindowsAuthentication ==0)
+                SqlConnectionString = "Data Source=" + ConnectionManager.ServerName + ";Initial Catalog=" + "master" + ";Integrated Security=True;";// + ConnectionManager.User + ";Password=" + ConnectionManager.Password + "'";
+            else
+                SqlConnectionString = "Data Source='" + ConnectionManager.ServerName + "';Initial Catalog='" + "master" + "';Persist Security Info=True;User ID='" + ConnectionManager.User + "';Password='" + ConnectionManager.Password+"'";
 
-            SqlConnectionString = "Data Source=" + ConnectionManager.ServerName + ";Initial Catalog=" + "master" + ";Integrated Security=True;";// + ConnectionManager.User + ";Password=" + ConnectionManager.Password + "'";
 
 
             // SqlConnectionString = "Data Source='" + ConnectionManager.ServerName + "';Initial Catalog='" + ConnectionManager.Database + "';User ID='" + ConnectionManager.User + "';Password='" + ConnectionManager.Password + "'";

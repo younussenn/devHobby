@@ -1,4 +1,5 @@
 ﻿using dbBackup.Managers;
+using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,15 +28,18 @@ namespace dbBackup
             fm = new FormManager();
             cm = new ConnectionManager();
 
-            Xml_Reader();
-            sqlManager = new SqlManager();
+            if (File.Exists("dtSetting.xsd"))
+            {
+                Xml_Reader();
+            }
+        
 
             
         }
 
         private void btnSettings_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            fm.ShowDialogForm(new frmDbSettings());
+            fm.ShowDialogForm(new frmDbSettings(this));
             
         }
 
@@ -44,8 +48,7 @@ namespace dbBackup
 
             try
             {
-                if (GetDatabaseList().Count > 0)
-                    cblDatabase.DataSource = GetDatabaseList();
+                FillDB();  
             }
             catch (Exception ex)
             {
@@ -57,33 +60,45 @@ namespace dbBackup
 
         }
 
+        public void FillDB()
+        {
+            if (GetDatabaseList().Count > 0)
+                cblDatabase.DataSource = GetDatabaseList();
+
+        }
+
         public List<string> GetDatabaseList()
         {
             List<string> list = new List<string>();
 
+            sqlManager = new SqlManager();
 
-            
-
-            using (SqlConnection con = new SqlConnection(sqlManager.SqlConnectionString))
+            if (File.Exists("dtSetting.xsd"))
             {
+                using (SqlConnection con = new SqlConnection(sqlManager.SqlConnectionString))
+                {
 
-                if (con.State == ConnectionState.Closed)
-                    con.Open();
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
 
-                if(con.State == ConnectionState.Open)
-                { 
-                    using (SqlCommand cmd = new SqlCommand("SELECT name from sys.databases", con))
+                    if (con.State == ConnectionState.Open)
                     {
-                        using (IDataReader dr = cmd.ExecuteReader())
+                        using (SqlCommand cmd = new SqlCommand("SELECT name from sys.databases", con))
                         {
-                            while (dr.Read())
+                            using (IDataReader dr = cmd.ExecuteReader())
                             {
-                                list.Add(dr[0].ToString());
+                                while (dr.Read())
+                                {
+                                    list.Add(dr[0].ToString());
+                                }
                             }
                         }
                     }
                 }
+
             }
+
+            
             return list;
 
         }
@@ -105,6 +120,7 @@ namespace dbBackup
                     ConnectionManager.ServerName= dr["Server"].ToString();
                     ConnectionManager.User = dr["User"].ToString();
                     ConnectionManager.Password = EncryptionManager.Decrypt(dr["Password"].ToString());
+                    ConnectionManager.IsWindowsAuthentication = Convert.ToInt32(dr["IsWindowsAuth"].ToString());
                 }
 
             }
@@ -113,6 +129,46 @@ namespace dbBackup
         private void btnRun_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbFolder_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckEdit edit = sender as CheckEdit;
+
+            if (edit.Checked == true)
+            {
+                tbPath.Enabled = true;
+                btnFolder.Enabled = true;
+                lblFolder.Enabled = true;
+            }
+            else
+            {
+
+                tbPath.Enabled = false;
+                btnFolder.Enabled = false;
+                lblFolder.Enabled = false;
+
+            }
+        }
+
+        private void cbEMail_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckEdit edit = sender as CheckEdit;
+            if (edit.Checked == true)
+            {
+                tbEMail.Enabled = true;
+                btnEmailSettings.Enabled = true;
+                lblEMail.Enabled = true;
+
+            }
+            else
+            {
+
+                tbEMail.Enabled = false;
+                btnEmailSettings.Enabled = false;
+                lblEMail.Enabled = false;
+
+            }
         }
     }
 }

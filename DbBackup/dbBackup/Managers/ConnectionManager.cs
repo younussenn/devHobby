@@ -8,6 +8,7 @@ namespace dbBackup.Managers
     public class ConnectionManager
     {
         static string _server, _database, _user, _password;
+        static int _isWindowsAuth;
         public static string Password
         {
             get { return ConnectionManager._password; }
@@ -32,7 +33,12 @@ namespace dbBackup.Managers
             set { ConnectionManager._server = value; }
         }
 
-         
+        public static int IsWindowsAuthentication
+        {
+            get { return ConnectionManager._isWindowsAuth; }
+            set { ConnectionManager._isWindowsAuth = value; }
+        }
+
 
 
     }
