@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraBars;
+using DevExpress.XtraBars.Alerter;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
@@ -17,16 +18,31 @@ namespace dbBackup.Managers
             
         }
 
+        public static void ShowAlertMessage(string message)
+        {
+            AlertControl alert = new AlertControl();
+
+            //alert.Show()
+        }
+
+        public static void ShowToastMessage(string message)
+        {
+
+        }
+
 
         public static void ShowInfoMessage(string message)
         {
           
-            FlyoutMessageBox.Show(message, "Bilgilendirme", MessageBoxButtons.OK, MessageBoxIcon.Information,MessageBoxDefaultButton.Button1);
+            FlyoutMessageBox.Show(message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information,MessageBoxDefaultButton.Button1);
         }
+
+
+
 
         public static void ShowQuestionMessage(string message)
         {
-            FlyoutMessageBox.Show(message, "?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            FlyoutMessageBox.Show(message, "", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
    
 
         }
@@ -49,4 +65,6 @@ namespace dbBackup.Managers
 
 
     }
+
+    
 }

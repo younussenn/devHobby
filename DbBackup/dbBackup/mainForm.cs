@@ -19,6 +19,7 @@ namespace dbBackup
         FormManager fm;
         ConnectionManager cm;
         SqlManager sqlManager;
+        BackupManager backupManager;
 
         public mainForm()
         {
@@ -32,6 +33,7 @@ namespace dbBackup
             {
                 Xml_Reader();
             }
+
         
 
             
@@ -170,5 +172,58 @@ namespace dbBackup
 
             }
         }
+
+
+        public void BackupDbAndCompress(string path,string fileName,string database)
+        {
+
+            try
+            {
+
+                if (Directory.Exists(path))
+                {
+                    throw new Exception("This path not found!");
+                }
+
+                string queery = "BACKUP DATABASE" + database + "TO DISK" + fileName;
+
+
+                using (SqlConnection con = new SqlConnection(sqlManager.SqlConnectionString))
+                {
+
+                    if (con.State == ConnectionState.Closed)
+                        con.Open();
+
+                    if (con.State == ConnectionState.Open)
+                    {
+                        using (SqlCommand cmd = new SqlCommand(queery, con))
+                        {
+                            cmd.ExecuteNonQuery();
+
+                        }
+                    }
+                }
+
+
+
+
+
+
+
+
+
+                        }
+            catch (Exception ex)
+            {
+
+                MessageManager.ShowErrorMessage(ex.Message);
+                
+            }
+
+
+
+        }
+
+
     }
 }
