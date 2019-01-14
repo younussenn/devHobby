@@ -10,6 +10,34 @@ namespace dbBackup.Managers
     public class BackupManager
     {
 
+        static string _backupPath, _backupEmail;
+        static bool _isPath, _isEmail;
+        public static string BackupPath
+        {
+            get { return BackupManager._backupPath; }
+            set { BackupManager._backupPath = value; }
+        }
+
+        public static bool IsPath
+        {
+            get { return BackupManager._isPath; }
+            set { BackupManager._isPath = value; }
+        }
+
+        public static string BackupEMail
+        {
+            get { return BackupManager._backupEmail; }
+            set { BackupManager._backupEmail = value; }
+        }
+
+        public static bool IsEMail
+        {
+            get { return BackupManager._isEmail; }
+            set { BackupManager._isEmail = value; }
+        }
+
+        
+
         public BackupManager()
         {
 

@@ -63,6 +63,7 @@
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.checkEdit2 = new DevExpress.XtraEditors.CheckEdit();
             this.btnRun = new DevExpress.XtraEditors.SimpleButton();
+            this.xtraFolderBrowserDialog1 = new DevExpress.XtraEditors.XtraFolderBrowserDialog(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
@@ -255,11 +256,12 @@
             // btnFolder
             // 
             this.btnFolder.Enabled = false;
-            this.btnFolder.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.btnFolder.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnFolder.ImageOptions.Image")));
             this.btnFolder.Location = new System.Drawing.Point(717, 34);
             this.btnFolder.Name = "btnFolder";
             this.btnFolder.Size = new System.Drawing.Size(42, 37);
             this.btnFolder.TabIndex = 7;
+            this.btnFolder.Click += new System.EventHandler(this.btnFolder_Click);
             // 
             // tbPath
             // 
@@ -303,7 +305,7 @@
             // btnEmailSettings
             // 
             this.btnEmailSettings.Enabled = false;
-            this.btnEmailSettings.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.ImageOptions.Image")));
+            this.btnEmailSettings.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnEmailSettings.ImageOptions.Image")));
             this.btnEmailSettings.Location = new System.Drawing.Point(612, 71);
             this.btnEmailSettings.Name = "btnEmailSettings";
             this.btnEmailSettings.Size = new System.Drawing.Size(147, 37);
@@ -391,6 +393,10 @@
             this.btnRun.Text = "RUN NOW";
             this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
+            // xtraFolderBrowserDialog1
+            // 
+            this.xtraFolderBrowserDialog1.SelectedPath = "xtraFolderBrowserDialog1";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -475,6 +481,7 @@
         private DevExpress.XtraEditors.SplitContainerControl splitContainerControl1;
         private DevExpress.XtraBars.SkinRibbonGalleryBarItem skinRibbonGalleryBarItem1;
         private DevExpress.XtraEditors.SimpleButton btnRun;
+        private DevExpress.XtraEditors.XtraFolderBrowserDialog xtraFolderBrowserDialog1;
     }
 }
 

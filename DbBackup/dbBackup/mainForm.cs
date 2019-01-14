@@ -21,6 +21,8 @@ namespace dbBackup
         SqlManager sqlManager;
         BackupManager backupManager;
 
+        string zipName;
+
         public mainForm()
         {
             InitializeComponent();
@@ -34,9 +36,11 @@ namespace dbBackup
                 Xml_Reader();
             }
 
-        
+           
 
-            
+
+
+
         }
 
         private void btnSettings_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -68,6 +72,9 @@ namespace dbBackup
                 cblDatabase.DataSource = GetDatabaseList();
 
         }
+
+
+        
 
         public List<string> GetDatabaseList()
         {
@@ -130,7 +137,24 @@ namespace dbBackup
 
         private void btnRun_Click(object sender, EventArgs e)
         {
+            try
+            {
+                backupManager = new BackupManager();
+                
+               foreach(var item in cblDatabase.CheckedItems)
+               {
+                    BackupDbAndCompress(tbPath.Text, backupManager.restoreFileName(tbPath.Text,"",item.ToString()), item.ToString());
 
+                    MessageManager.ShowAlertMessage(this, "Information", "Successfully full backup to database : " + Environment.NewLine +  item.ToString());
+               }
+
+                //BackupDbAndCompress("", "", "");
+
+            }
+            catch (Exception ex)
+            {
+                MessageManager.ShowErrorMessage(ex.Message);
+            }
         }
 
         private void cbFolder_CheckedChanged(object sender, EventArgs e)
@@ -142,6 +166,8 @@ namespace dbBackup
                 tbPath.Enabled = true;
                 btnFolder.Enabled = true;
                 lblFolder.Enabled = true;
+
+           
             }
             else
             {
@@ -149,6 +175,9 @@ namespace dbBackup
                 tbPath.Enabled = false;
                 btnFolder.Enabled = false;
                 lblFolder.Enabled = false;
+
+                tbPath.Text = "";
+
 
             }
         }
@@ -162,6 +191,8 @@ namespace dbBackup
                 btnEmailSettings.Enabled = true;
                 lblEMail.Enabled = true;
 
+               
+                 
             }
             else
             {
@@ -169,6 +200,8 @@ namespace dbBackup
                 tbEMail.Enabled = false;
                 btnEmailSettings.Enabled = false;
                 lblEMail.Enabled = false;
+
+                tbEMail.Text = "";
 
             }
         }
@@ -180,12 +213,12 @@ namespace dbBackup
             try
             {
 
-                if (Directory.Exists(path))
+                if (!Directory.Exists(path))
                 {
                     throw new Exception("This path not found!");
                 }
 
-                string queery = "BACKUP DATABASE" + database + "TO DISK" + fileName;
+                string queery = "BACKUP DATABASE " + database + " TO DISK = '" + fileName + "'";
 
 
                 using (SqlConnection con = new SqlConnection(sqlManager.SqlConnectionString))
@@ -205,6 +238,9 @@ namespace dbBackup
                 }
 
 
+                zipName = fileName.Replace(".bak", ".zip");
+
+                backupManager.zipBackupFile(fileName, zipName, 1024);
 
 
 
@@ -212,7 +248,8 @@ namespace dbBackup
 
 
 
-                        }
+
+            }
             catch (Exception ex)
             {
 
@@ -224,6 +261,98 @@ namespace dbBackup
 
         }
 
+        private void btnFolder_Click(object sender, EventArgs e)
+        {
+            xtraFolderBrowserDialog1.ShowDialog();
+            tbPath.Text = xtraFolderBrowserDialog1.SelectedPath;
+        }
+
+
+        //public void writeXmlBackupParameter()
+        //{
+
+        //    DataTable dtSetting = new DataTable("dtBackupParameter");
+        //    dtSetting.Columns.Add("backupPath");
+        //    dtSetting.Columns.Add("isPath");
+        //    dtSetting.Columns.Add("backupEmail");
+        //    dtSetting.Columns.Add("isEmail");
+
+        //    if (!File.Exists("dtBackupParameter.xsd"))
+        //        dtSetting.WriteXmlSchema("dtBackupParameter.xsd");
+
+        //    DataRow dr = dtSetting.NewRow();
+
+        //    if (cbFolder.Checked)
+        //    {
+        //        dr["backupPath"] = tbPath.Text;
+        //        dr["isPath"] = "1";
+        //    }
+        //    else
+        //    {
+        //        dr["backupPath"] = "";
+        //        dr["isPath"] = "0";
+        //    }
+
+
+        //    if (cbEMail.Checked)
+        //    {
+        //        dr["backupEmail"] = "";
+        //        dr["isEmail"] = "1";
+
+        //    }
+        //    else
+        //    {
+        //        dr["backupEmail"] = "";
+        //        dr["isEmail"] = "0";
+        //    }
+
+        //    dtSetting.Rows.Add(dr);
+
+        //    dtSetting.WriteXml("dtBackupParameter.xml");
+
+
+        //}
+
+        //public void readXmlBackupParameter()
+        //{
+        //    if (File.Exists("dtBackupParameter.xsd"))
+        //    {
+
+        //        DataTable dtSetting = new DataTable();
+        //        dtSetting.ReadXmlSchema("dtBackupParameter.xsd");
+
+        //        dtSetting.ReadXml("dtBackupParameter.xml");
+
+
+        //        foreach (DataRow dr in dtSetting.Rows)
+        //        {
+
+        //            if(dr["isPath"].ToString() == "1")
+        //                BackupManager.IsPath = true;
+        //            else
+        //                BackupManager.IsPath = false;
+
+        //            if (dr["isEmail"].ToString() == "1")
+        //                BackupManager.IsEMail = true;
+        //            else
+        //                BackupManager.IsEMail = false;
+
+
+        //            BackupManager.BackupPath = dr["backupPath"].ToString();
+        //            BackupManager.BackupPath = dr["backupEmail"].ToString();
+
+
+
+        //        }
+
+        //    }
+
+        //}
+
+        //public void FillBackupParameter()
+        //{
+
+        //}
 
     }
 }

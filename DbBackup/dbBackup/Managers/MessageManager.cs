@@ -1,8 +1,10 @@
-﻿using DevExpress.XtraBars;
+﻿using dbBackup.Properties;
+using DevExpress.XtraBars;
 using DevExpress.XtraBars.Alerter;
 using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -18,15 +20,30 @@ namespace dbBackup.Managers
             
         }
 
-        public static void ShowAlertMessage(string message)
+        public static void ShowAlertMessage(Form frmParent,string header,string message)
         {
             AlertControl alert = new AlertControl();
 
-            //alert.Show()
+            alert.ShowPinButton = true;
+            alert.ShowCloseButton = true;
+            
+
+
+            alert.Show(frmParent, header, message, true);
+            //alert.Show(frmParent, header, message, "",  , msg)
+                
         }
 
-        public static void ShowToastMessage(string message)
+        public static void ShowToastMessage(string header,string message)
         {
+            DevExpress.XtraBars.ToastNotifications.ToastNotification toastNotification = new DevExpress.XtraBars.ToastNotifications.ToastNotification();
+
+
+            
+            
+            
+
+
 
         }
 
