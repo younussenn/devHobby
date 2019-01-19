@@ -72,6 +72,12 @@
     <Compile Include="frmDbSettings.Designer.cs">
       <DependentUpon>frmDbSettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEMailSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEMailSettings.Designer.cs">
+      <DependentUpon>frmEMailSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="images.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -85,6 +91,7 @@
     </Compile>
     <Compile Include="Managers\BackupManager.cs" />
     <Compile Include="Managers\ConnectionManager.cs" />
+    <Compile Include="Managers\EMailManager.cs" />
     <Compile Include="Managers\EncryptionManager.cs" />
     <Compile Include="Managers\FormManager.cs" />
     <Compile Include="Managers\MessageManager.cs" />
@@ -96,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDbSettings.resx">
       <DependentUpon>frmDbSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEMailSettings.resx">
+      <DependentUpon>frmEMailSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="images.resx">
       <Generator>ResXFileCodeGenerator</Generator>

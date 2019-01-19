@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Windows.Forms;
 
@@ -20,8 +21,10 @@ namespace dbBackup
         ConnectionManager cm;
         SqlManager sqlManager;
         BackupManager backupManager;
+        EMailManager eMailManager;
 
         string zipName;
+        string dbList="";
 
         public mainForm()
         {
@@ -73,9 +76,7 @@ namespace dbBackup
 
         }
 
-
-        
-
+ 
         public List<string> GetDatabaseList()
         {
             List<string> list = new List<string>();
@@ -146,9 +147,21 @@ namespace dbBackup
                     BackupDbAndCompress(tbPath.Text, backupManager.restoreFileName(tbPath.Text,"",item.ToString()), item.ToString());
 
                     MessageManager.ShowAlertMessage(this, "Information", "Successfully full backup to database : " + Environment.NewLine +  item.ToString());
+
+                    if (cbEMail.Checked)
+                    {
+                        if (dbList == "")
+                            dbList = item.ToString();
+                        else
+                            dbList = dbList + Environment.NewLine + item.ToString();
+                    }
                }
 
-                //BackupDbAndCompress("", "", "");
+                if (cbEMail.Checked)
+                {
+                    sendMail(tbEMail.Text, dbList);
+
+                }
 
             }
             catch (Exception ex)
@@ -354,5 +367,31 @@ namespace dbBackup
 
         //}
 
+
+        void sendMail(string toEMail,string backupedDb)
+        {
+
+            if(cbEMail.Checked)
+            {
+                MailMessage mail = new MailMessage();
+                mail.To.Add(toEMail);
+                mail.From = new MailAddress(EMailManager.EMail);
+                mail.Subject = "Backup Info";
+                mail.Body = "Hi , " + Environment.NewLine + "BACKUPED Database List" + Environment.NewLine + "----------------------" + backupedDb + Environment.NewLine + Environment.NewLine + "SUCCESS BACKUP";
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = EMailManager.Smtp; 
+                smtp.Credentials = new System.Net.NetworkCredential(EMailManager.EMail, EMailManager.Pasword);
+                smtp.Port = EMailManager.Port;
+                smtp.EnableSsl = EMailManager.EnableSSL;
+                smtp.Send(mail);
+                MessageManager.ShowAlertMessage(this,"Info",tbEMail.Text + " Mail Sended");
+            }
+        }
+
+        private void btnEmailSettings_Click(object sender, EventArgs e)
+        {
+            fm.ShowDialogForm(new frmEMailSettings(this));
+        }
     }
 }

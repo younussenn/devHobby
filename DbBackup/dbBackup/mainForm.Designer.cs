@@ -311,6 +311,7 @@
             this.btnEmailSettings.Size = new System.Drawing.Size(147, 37);
             this.btnEmailSettings.TabIndex = 7;
             this.btnEmailSettings.Text = "E-Mail Settings";
+            this.btnEmailSettings.Click += new System.EventHandler(this.btnEmailSettings_Click);
             // 
             // tbEMail
             // 
@@ -395,7 +396,9 @@
             // 
             // xtraFolderBrowserDialog1
             // 
+            this.xtraFolderBrowserDialog1.RootFolder = System.Environment.SpecialFolder.DesktopDirectory;
             this.xtraFolderBrowserDialog1.SelectedPath = "xtraFolderBrowserDialog1";
+            this.xtraFolderBrowserDialog1.Title = "Select Folder";
             // 
             // mainForm
             // 
